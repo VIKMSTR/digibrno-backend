@@ -39,15 +39,11 @@ jobs:
         
       - name: Gradle Build Action
         # You may pin to the exact commit or the version.
-          if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         # uses: gradle/gradle-build-action@fec4a42eb0c83154e5c9590748ba8337949c5701
         uses: gradle/gradle-build-action@v2.1.5
         with:
-          # Path to the Gradle executable
-          gradle-executable: ./gradlew # optional
-        run: gradle bootJar
-         
-        
+          arguments: bootJar
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
