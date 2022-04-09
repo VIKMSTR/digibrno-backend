@@ -122,4 +122,5 @@ jobs:
           app-name: 'digibrno-backend'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_93e51ee48a154d928521bbb6ba69e74d }}
-          images: 'ghcr.io/vikmstr/${{ secrets.AzureAppService_ContainerUsername_2d54ebc2be64431cafaf3099bb003754 }}/vikmstr/digibrno-backend:${{ github.sha }}'        
+        #  images: 'ghcr.io/vikmstr/${{ secrets.AzureAppService_ContainerUsername_2d54ebc2be64431cafaf3099bb003754 }}/vikmstr/digibrno-backend:${{ github.sha }}'        
+          images: 'ghcr.io/vikmstr/vikmstr/digibrno-backend:${{ github.sha }}'        
