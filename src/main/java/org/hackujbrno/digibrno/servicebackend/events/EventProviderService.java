@@ -15,6 +15,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.TimeZone;
+import java.util.function.Predicate;
 
 @RestController
 public class EventProviderService {
@@ -31,6 +37,24 @@ public class EventProviderService {
         EventsFullObjectJSON fullObjectJSON = new ObjectMapper().readValue(response.body(),EventsFullObjectJSON.class);
                 return fullObjectJSON.features;
     }
+
+    @GetMapping("/eventsToday")
+    public List<EventEnvelopeJSON> getEventsToday() throws Exception{
+         return Arrays.stream(getEventsFromRemote()).filter(this::eventIsHappeningToday).toList();
+    }
+
+    private boolean eventIsHappeningToday(EventEnvelopeJSON input){
+        var fromTs =  input.attributes.getDate_from() ;
+        var toTs =  input.attributes.getDate_to();
+       var fromDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(fromTs),
+                TimeZone.getDefault().toZoneId());
+        var toDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(toTs),
+                TimeZone.getDefault().toZoneId());
+        var now = LocalDateTime.now();
+        return now.isAfter(fromDate) && now.isBefore(toDate);
+    }
+
+
 
 
 
