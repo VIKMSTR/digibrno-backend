@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-java@v3.1.0
         with:
           java-version: '18'
-          distribution: 'adopt'
+          distribution: 'zulu'
       - name: Validate Gradle wrapper
         if: github.event_name != 'pull_request'
         uses: gradle/wrapper-validation-action@v1.0.4
