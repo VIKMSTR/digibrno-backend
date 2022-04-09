@@ -26,7 +26,7 @@ public class NewsProviderService {
             var title = linkElee.attr("title");
             var picDiv = ele.getElementsByClass("obrazek").get(0);
             var pic = rootUrl + picDiv.getElementsByTag("a").get(1).attr("href");
-            var datum = ele.getElementsByClass("dateString").get(0).text().replace("&nbsp"," ");
+            var datum = ele.getElementsByClass("datum").get(0).text().replace("&nbsp"," ");
             var news = new SingleNews(title,subUrl,pic,datum);
             //titles.add(title);
             all_news.add(news);
