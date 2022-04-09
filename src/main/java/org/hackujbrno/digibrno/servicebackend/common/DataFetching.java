@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class DataFetching {
+
     public static HttpResponse<String> getDataFromRemote(String url) throws Exception{
         var client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder()
@@ -14,4 +15,5 @@ public class DataFetching {
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
 }
