@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.hackujbrno.digibrno.servicebackend.common.DataFetching;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,12 @@ import java.util.function.Predicate;
 
 @RestController
 public class EventProviderService {
-
+    @Autowired
+    EventDataRegistry dataRegistry;
 
     @GetMapping("/events")
     public EventEnvelopeJSON[] getEvents() throws Exception{
-        return getEventsFromRemote();
+        return dataRegistry.events;
     }
 
 
@@ -40,7 +42,7 @@ public class EventProviderService {
 
     @GetMapping("/eventsToday")
     public List<EventEnvelopeJSON> getEventsToday() throws Exception{
-         return Arrays.stream(getEventsFromRemote()).filter(this::eventIsHappeningToday).toList();
+         return Arrays.stream(dataRegistry.events).filter(this::eventIsHappeningToday).toList();
     }
 
     private boolean eventIsHappeningToday(EventEnvelopeJSON input){
