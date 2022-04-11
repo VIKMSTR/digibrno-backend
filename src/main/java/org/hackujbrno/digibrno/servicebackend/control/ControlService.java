@@ -50,6 +50,11 @@ public class ControlService {
             newsDataRegistry.data = getNews();
     }
 
+    @GetMapping("/")
+    public String indexPage (){
+        return "swagger-ui/index.html";
+    }
+
     @EventListener(classes = ApplicationStartedEvent.class )
     public void listenToStart(ApplicationStartedEvent event) throws Exception {
         logger.info("App starting, fetching new data.");

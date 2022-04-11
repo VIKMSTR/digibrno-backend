@@ -44,6 +44,11 @@ public class EventProviderService {
          return Arrays.stream(dataRegistry.events).filter(this::eventIsHappeningToday).toList();
     }
 
+    @GetMapping("/eventsTodayStaging")
+    public List<EventEntityEnvelope> getEventsTodayPrototype() throws Exception{
+        return Arrays.stream(dataRegistry.events).filter(this::eventIsHappeningToday).map(EventEntityEnvelope::fromEventEntityEnvelopeJSON).toList();
+    }
+
     private boolean eventIsHappeningToday(EventEnvelopeJSON input){
         var fromTs =  input.attributes.getDate_from() ;
         var toTs =  input.attributes.getDate_to();
